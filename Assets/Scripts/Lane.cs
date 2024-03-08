@@ -1,9 +1,8 @@
-using Melanchall.DryWetMidi.Interaction;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using Melanchall.DryWetMidi.Interaction;
+using System;
 
 public class Lane : MonoBehaviour
 {
@@ -14,13 +13,14 @@ public class Lane : MonoBehaviour
     public List<double> timeStamps = new List<double>();
 
     int spawnIndex = 0;
-    int inputIndex = 0;
+    List<int> inputIndices = new List<int>();
 
     // Start is called before the first frame update
     void Start()
     {
 
     }
+
     public void SetTimeStamps(Melanchall.DryWetMidi.Interaction.Note[] array)
     {
         foreach (var note in array)
@@ -32,54 +32,52 @@ public class Lane : MonoBehaviour
             }
         }
     }
+
     // Update is called once per frame
     void Update()
     {
-        if (spawnIndex < timeStamps.Count)
+        // Spawn notes
+        while (spawnIndex < timeStamps.Count && SongManager.GetAudioSourceTime() >= timeStamps[spawnIndex] - SongManager.Instance.noteTime)
         {
-            if (SongManager.GetAudioSourceTime() >= timeStamps[spawnIndex] - SongManager.Instance.noteTime)
-            {
-                var note = Instantiate(notePrefab, transform);
-                notes.Add(note.GetComponent<Note>());
-                note.GetComponent<Note>().assignedTime = (float)timeStamps[spawnIndex];
-                spawnIndex++;
-            }
+            var note = Instantiate(notePrefab, transform);
+            notes.Add(note.GetComponent<Note>());
+            note.GetComponent<Note>().assignedTime = (float)timeStamps[spawnIndex];
+            spawnIndex++;
         }
 
-        if (inputIndex < timeStamps.Count)
+        // Check input for each note
+        for (int i = 0; i < timeStamps.Count; i++)
         {
-            double timeStamp = timeStamps[inputIndex];
-            double marginOfError = SongManager.Instance.marginOfError;
+            double timeStamp = timeStamps[i];
+            double marginOfError = SongManager.Instance.MarginOfError;
             double audioTime = SongManager.GetAudioSourceTime() - (SongManager.Instance.inputDelayInMilliseconds / 1000.0);
 
-            if (Input.GetKeyDown(input))
+            if (!inputIndices.Contains(i))
             {
-                if (Math.Abs(audioTime - timeStamp) < marginOfError)
+                // If note hasn't been processed yet
+                if (Input.GetKeyDown(input) && Math.Abs(audioTime - timeStamp) < marginOfError)
                 {
-                    Hit();
-                    print($"Hit on {inputIndex} note");
-                    Destroy(notes[inputIndex].gameObject);
-                    inputIndex++;
+                    Hit(i);
+                    print($"Hit on {i} note");
+                    inputIndices.Add(i);
                 }
-                else
+                else if (timeStamp + marginOfError <= audioTime)
                 {
-                    print($"Hit inaccurate on {inputIndex} note with {Math.Abs(audioTime - timeStamp)} delay");
+                    Miss(i);
+                    print($"Missed {i} note");
+                    inputIndices.Add(i);
                 }
-            }
-            if (timeStamp + marginOfError <= audioTime)
-            {
-                Miss();
-                print($"Missed {inputIndex} note");
-                inputIndex++;
             }
         }
-
     }
-    private void Hit()
+
+    private void Hit(int index)
     {
         ScoreManager.Hit();
+        Destroy(notes[index].gameObject);
     }
-    private void Miss()
+
+    private void Miss(int index)
     {
         ScoreManager.Miss();
     }

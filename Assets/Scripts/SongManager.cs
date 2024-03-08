@@ -6,7 +6,6 @@ using Melanchall.DryWetMidi.Interaction;
 using System.IO;
 using UnityEngine.Networking;
 using System;
-using System.Numerics;
 
 public class SongManager : MonoBehaviour
 {
@@ -14,10 +13,14 @@ public class SongManager : MonoBehaviour
     public AudioSource audioSource;
     public Lane[] lanes;
     public float songDelayInSeconds;
-    public double marginOfError; // in seconds
+    public double marginOfError; // Default margin of error = 0.1
+    public double MarginOfError
+    {
+        get { return marginOfError; }
+        set { marginOfError = Math.Max(0, value); } // Ensure margin of error is not negative
+    }
 
     public int inputDelayInMilliseconds;
-
 
     public string fileLocation;
     public float noteTime;
@@ -25,14 +28,11 @@ public class SongManager : MonoBehaviour
     public float noteTapY;
     public float noteDespawnY
     {
-        get
-        {
-            return noteTapY - (noteSpawnY - noteTapY);
-        }
+        get { return noteTapY - (noteSpawnY - noteTapY); }
     }
 
     public static MidiFile midiFile;
-    // Start is called before the first frame update
+
     void Start()
     {
         Instance = this;
@@ -73,6 +73,7 @@ public class SongManager : MonoBehaviour
         midiFile = MidiFile.Read(Application.streamingAssetsPath + "/" + fileLocation);
         GetDataFromMidi();
     }
+
     public void GetDataFromMidi()
     {
         var notes = midiFile.GetNotes();
@@ -83,10 +84,12 @@ public class SongManager : MonoBehaviour
 
         Invoke(nameof(StartSong), songDelayInSeconds);
     }
+
     public void StartSong()
     {
         audioSource.Play();
     }
+
     public static double GetAudioSourceTime()
     {
         return (double)Instance.audioSource.timeSamples / Instance.audioSource.clip.frequency;

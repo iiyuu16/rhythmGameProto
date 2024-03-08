@@ -6,6 +6,7 @@ public class Note : MonoBehaviour
 {
     double timeInstantiated;
     public float assignedTime;
+
     void Start()
     {
         timeInstantiated = SongManager.GetAudioSourceTime();
@@ -17,7 +18,6 @@ public class Note : MonoBehaviour
         double timeSinceInstantiated = SongManager.GetAudioSourceTime() - timeInstantiated;
         float t = (float)(timeSinceInstantiated / (SongManager.Instance.noteTime * 2));
 
-
         if (t > 1)
         {
             Destroy(gameObject);
@@ -25,7 +25,13 @@ public class Note : MonoBehaviour
         else
         {
             transform.localPosition = Vector3.Lerp(Vector3.up * SongManager.Instance.noteSpawnY, Vector3.up * SongManager.Instance.noteDespawnY, t);
-            GetComponent<SpriteRenderer>().enabled = true;
+
+            // Find the SpriteRenderer component in children
+            SpriteRenderer[] spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+            foreach (var renderer in spriteRenderers)
+            {
+                renderer.enabled = true;
+            }
         }
     }
 }
