@@ -15,6 +15,8 @@ public class Lane : MonoBehaviour
     int spawnIndex = 0;
     List<int> inputIndices = new List<int>();
 
+    public GameObject noteFX;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -74,11 +76,13 @@ public class Lane : MonoBehaviour
     private void Hit(int index)
     {
         ScoreManager.Hit();
+        noteFX.GetComponent<Animator>().SetTrigger("notehit");
         Destroy(notes[index].gameObject);
     }
 
     private void Miss(int index)
     {
+        noteFX.GetComponent<Animator>().SetTrigger("notemiss");
         ScoreManager.Miss();
     }
 }
