@@ -6,6 +6,8 @@ using System;
 
 public class Lane : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem _particleSystem = default;
+
     public Melanchall.DryWetMidi.MusicTheory.NoteName noteRestriction;
     public KeyCode input;
     public GameObject notePrefab;
@@ -15,7 +17,7 @@ public class Lane : MonoBehaviour
     int spawnIndex = 0;
     List<int> inputIndices = new List<int>();
 
-    public GameObject noteFX;
+    public List<string> noteRestrictions = new List<string>();
 
     // Start is called before the first frame update
     void Start()
@@ -76,13 +78,12 @@ public class Lane : MonoBehaviour
     private void Hit(int index)
     {
         ScoreManager.Hit();
-        noteFX.GetComponent<Animator>().SetTrigger("notehit");
+        _particleSystem.Play();
         Destroy(notes[index].gameObject);
     }
 
     private void Miss(int index)
     {
-        noteFX.GetComponent<Animator>().SetTrigger("notemiss");
         ScoreManager.Miss();
     }
 }
