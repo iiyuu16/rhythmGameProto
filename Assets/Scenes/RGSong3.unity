@@ -1205,7 +1205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a20cda6c0f8f514c8a2176c76dc5dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bpm: 69
+  _bpm: 120
   _audioSource: {fileID: 755543451}
   _intervals:
   - _steps: 1
@@ -1354,7 +1354,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _particleSystem: {fileID: 626157356}
-  noteRestriction: 11
+  noteRestriction: 0
   input: 100
   notePrefab: {fileID: 3521555005425061812, guid: 7fd84e522f0ec3049baa8556c643e1d4, type: 3}
   timeStamps: []
@@ -1903,7 +1903,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 9d995cfb19b02fc42af517f55b6aab55, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 94377b1debda8ae4289f7cef51f74d63, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -3339,7 +3339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _particleSystem: {fileID: 146032444}
-  noteRestriction: 10
+  noteRestriction: 9
   input: 106
   notePrefab: {fileID: 3521555005425061812, guid: 7fd84e522f0ec3049baa8556c643e1d4, type: 3}
   timeStamps: []
@@ -3756,7 +3756,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _particleSystem: {fileID: 597407465}
-  noteRestriction: 9
+  noteRestriction: 11
   input: 102
   notePrefab: {fileID: 3521555005425061812, guid: 7fd84e522f0ec3049baa8556c643e1d4, type: 3}
   timeStamps: []
@@ -3962,7 +3962,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _particleSystem: {fileID: 1774523962}
-  noteRestriction: 8
+  noteRestriction: 7
   input: 107
   notePrefab: {fileID: 3521555005425061812, guid: 7fd84e522f0ec3049baa8556c643e1d4, type: 3}
   timeStamps: []
@@ -4073,7 +4073,7 @@ MonoBehaviour:
   marginOfError: 0.08
   inputDelayInMilliseconds: 0
   inputSensitivity: 0.5
-  fileLocation: CoinSong.mid
+  fileLocation: bbdba.mid
   noteTime: 1
   noteSpawnY: 25
   noteTapY: -3
