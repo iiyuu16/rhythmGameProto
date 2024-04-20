@@ -4,5 +4,17 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/RhythmMenu.unity
+    guid: c1e146c8318840a4680f7214a1d7ef59
+  - enabled: 1
+    path: Assets/Scenes/RGSong1.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/RGSong2.unity
+    guid: 3fa2d2ba48f47404bbe35167ac87eae5
+  - enabled: 1
+    path: Assets/Scenes/RGSong3.unity
+    guid: 29d59bf3abcf0304f99a55831f20b3e6
   m_configObjects: {}

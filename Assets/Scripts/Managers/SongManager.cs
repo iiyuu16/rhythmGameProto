@@ -20,6 +20,7 @@ public class SongManager : MonoBehaviour
     }
 
     public int inputDelayInMilliseconds;
+    public float inputSensitivity = 0.5f; // Increased sensitivity multiplier for input detection
 
     public string fileLocation;
     public float noteTime;
@@ -32,9 +33,13 @@ public class SongManager : MonoBehaviour
 
     public static MidiFile midiFile;
 
+    private bool isSongFinished = false;
+    public GameObject resultsGameObject;
+
     void Start()
     {
         Instance = this;
+        resultsGameObject.SetActive(false);
         if (Application.streamingAssetsPath.StartsWith("http://") || Application.streamingAssetsPath.StartsWith("https://"))
         {
             StartCoroutine(ReadFromWebsite());
@@ -96,6 +101,30 @@ public class SongManager : MonoBehaviour
 
     void Update()
     {
+        if (!isSongFinished && audioSource.isPlaying)
+        {
+            // Check if the audio source has finished playing the song
+            if (audioSource.time >= audioSource.clip.length - 0.01f) // Allow a small buffer for precision
+            {
+                SongFinished();
+            }
+        }
+    }
 
+
+    private void SongFinished()
+    {
+        // Do something when the song is finished
+        Debug.Log("Song finished!");
+        isSongFinished = true;
+
+        // Enable the results GameObject
+        resultsGameObject.SetActive(true);
+    }
+
+    // Method to adjust the margin of error based on input sensitivity
+    public double AdjustedMarginOfError()
+    {
+        return MarginOfError * inputSensitivity;
     }
 }
