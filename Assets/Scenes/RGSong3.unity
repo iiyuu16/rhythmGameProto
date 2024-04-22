@@ -4080,7 +4080,7 @@ MonoBehaviour:
   songDelayInSeconds: 5
   marginOfError: 0.08
   inputDelayInMilliseconds: 0
-  inputSensitivity: 2
+  inputSensitivity: 3
   fileLocation: bbdba.mid
   noteTime: 1
   noteSpawnY: 25
