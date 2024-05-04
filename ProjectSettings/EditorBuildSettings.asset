@@ -13,8 +13,5 @@ EditorBuildSettings:
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
     path: Assets/Scenes/RGSong2.unity
-    guid: 3fa2d2ba48f47404bbe35167ac87eae5
-  - enabled: 1
-    path: Assets/Scenes/RGSong3.unity
     guid: 29d59bf3abcf0304f99a55831f20b3e6
   m_configObjects: {}

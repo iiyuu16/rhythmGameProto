@@ -18,11 +18,6 @@ public class SceneController : MonoBehaviour
         LoadScene("RGSong2");
     }
 
-    public void toRGSong3()
-    {
-        LoadScene("RGSong3");
-    }
-
     public void QuitGame()
     {
         Application.Quit();
