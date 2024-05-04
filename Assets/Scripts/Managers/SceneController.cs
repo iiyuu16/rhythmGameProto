@@ -30,7 +30,7 @@ public class SceneController : MonoBehaviour
         if (currentScene.isLoaded)
         {
             SceneManager.UnloadSceneAsync(sceneName);
-        }
+        }   
 
         // Load the scene with Single mode to ensure it's a new instance
         SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
