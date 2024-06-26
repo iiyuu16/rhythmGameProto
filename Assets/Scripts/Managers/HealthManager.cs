@@ -13,7 +13,7 @@ public class HealthManager : MonoBehaviour
     public TextMeshProUGUI failText; // Use TextMeshProUGUI instead of TMProUGUI
     private Coroutine healthTimerCoroutine;
     public int healthToAdd = 8;
-    public float timeToRegainHealth = 10f;
+    public float timeToRegainHealth = 5f;
     private float timeSinceLastMiss;
 
     void Start()
