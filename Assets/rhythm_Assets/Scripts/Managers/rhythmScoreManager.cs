@@ -1,15 +1,15 @@
 using UnityEngine;
 using TMPro;
 
-public class ScoreManager : MonoBehaviour
+public class rhythmScoreManager : MonoBehaviour
 {
-    public static ScoreManager Instance;
+    public static rhythmScoreManager Instance;
     public AudioSource hitSFX;
     public AudioSource missSFX;
     public TextMeshPro scoreTextMesh;
-    public TextMeshProUGUI resScoreText; // TextMeshProUGUI for displaying results
+    public TextMeshProUGUI resScoreText;
     public static int comboScore;
-    public int healthDeduction = 10; // Amount of health deducted for every miss
+    public int healthDeduction = 10;
 
     void Start()
     {
@@ -27,15 +27,14 @@ public class ScoreManager : MonoBehaviour
     {
         comboScore = 0;
         Instance.missSFX.Play();
-        DeductHealthOnMiss(); // Deduct health on miss
+        DeductHealthOnMiss();
     }
 
     private static void DeductHealthOnMiss()
     {
-        // Access the HealthManager instance and deduct health
-        if (HealthManager.Instance != null)
+        if (rhythmHealthManager.Instance != null)
         {
-            HealthManager.Instance.DeductHealth(Instance.healthDeduction);
+            rhythmHealthManager.Instance.DeductHealth(Instance.healthDeduction);
         }
         else
         {
@@ -45,19 +44,17 @@ public class ScoreManager : MonoBehaviour
 
     private void Update()
     {
-        UpdateScoreText(); // Update score text
+        UpdateScoreText();
         UpdateResultScoreText();
     }
 
     void UpdateScoreText()
     {
-        // Update score text mesh
         scoreTextMesh.text = comboScore.ToString();
     }
 
     void UpdateResultScoreText()
     {
-        // Update result score text with the final combo score
-        resScoreText.text = ScoreManager.comboScore.ToString();
+        resScoreText.text = rhythmScoreManager.comboScore.ToString();
     }
 }

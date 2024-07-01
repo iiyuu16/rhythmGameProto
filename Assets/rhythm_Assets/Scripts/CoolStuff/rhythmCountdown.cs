@@ -1,9 +1,8 @@
-// Countdown.cs
 using System.Collections;
 using UnityEngine;
 using TMPro;
 
-public class Countdown : MonoBehaviour
+public class rhythmCountdown : MonoBehaviour
 {
     public TextMeshProUGUI countdownText;
     public GameObject objectToDisable;
@@ -18,21 +17,17 @@ public class Countdown : MonoBehaviour
 
     IEnumerator StartCountdown()
     {
-        // Countdown from 3 to 1
         for (int i = 3; i > 0; i--)
         {
             countdownText.text = i.ToString();
             yield return ScaleText(countdownText);
         }
 
-        // Display "Go!"
         countdownText.text = "Go!";
         yield return ScaleText(countdownText);
 
-        // Clear the text after displaying "Go!"
         countdownText.text = "";
 
-        // Disable the specified GameObject
         if (objectToDisable != null)
         {
             objectToDisable.SetActive(false);

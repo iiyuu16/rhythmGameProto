@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneController : MonoBehaviour
+public class rhythmSceneController : MonoBehaviour
 {
     public void toRhythmMenu()
     {
@@ -25,14 +25,12 @@ public class SceneController : MonoBehaviour
 
     private void LoadScene(string sceneName)
     {
-        // Check if the scene is already loaded, then unload it
         Scene currentScene = SceneManager.GetSceneByName(sceneName);
         if (currentScene.isLoaded)
         {
             SceneManager.UnloadSceneAsync(sceneName);
         }   
 
-        // Load the scene with Single mode to ensure it's a new instance
         SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
 
         Time.timeScale = 1.0f;

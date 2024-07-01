@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BeatManager : MonoBehaviour
+public class rhythmBeatManager : MonoBehaviour
 {
     [SerializeField] private float _bpm;
     [SerializeField] public AudioSource _audioSource;

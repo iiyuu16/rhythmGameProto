@@ -3,14 +3,14 @@ using UnityEngine.UI;
 using System.Collections;
 using TMPro;
 
-public class HealthManager : MonoBehaviour
+public class rhythmHealthManager : MonoBehaviour
 {
-    public static HealthManager Instance;
+    public static rhythmHealthManager Instance;
     public Slider healthSlider;
     public int maxHealth = 100;
     private int currentHealth;
 
-    public TextMeshProUGUI failText; // Use TextMeshProUGUI instead of TMProUGUI
+    public TextMeshProUGUI failText;
     private Coroutine healthTimerCoroutine;
     public int healthToAdd = 8;
     public float timeToRegainHealth = 5f;
@@ -19,7 +19,7 @@ public class HealthManager : MonoBehaviour
     void Start()
     {
         Instance = this;
-        failText.gameObject.SetActive(false); // Ensure the text object is deactivated at start
+        failText.gameObject.SetActive(false);
         currentHealth = maxHealth;
         UpdateHealthSlider();
         timeSinceLastMiss = 0f;
@@ -66,7 +66,7 @@ public class HealthManager : MonoBehaviour
     {
         if (failText != null)
         {
-            failText.gameObject.SetActive(true); // Enable the fail text
+            failText.gameObject.SetActive(true);
         }
     }
 

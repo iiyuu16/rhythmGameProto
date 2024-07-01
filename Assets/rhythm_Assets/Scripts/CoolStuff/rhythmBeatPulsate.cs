@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class BeatPulsate : MonoBehaviour
+public class rhythmBeatPulsate : MonoBehaviour
 {
     [SerializeField] bool _useTestBeat;
     [SerializeField] float _pulseSize = 1.5f;

@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 
-public class RGBText : MonoBehaviour
+public class rhythmRGBText : MonoBehaviour
 {
     public float speed = 1f;
     private TextMeshProUGUI text;

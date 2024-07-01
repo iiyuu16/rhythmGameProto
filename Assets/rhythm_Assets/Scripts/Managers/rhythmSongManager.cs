@@ -6,21 +6,21 @@ using System.IO;
 using UnityEngine.Networking;
 using System;
 
-public class SongManager : MonoBehaviour
+public class rhythmSongManager : MonoBehaviour
 {
-    public static SongManager Instance;
+    public static rhythmSongManager Instance;
     public AudioSource audioSource;
-    public Lane[] lanes;
+    public rhythmLane[] lanes;
     public float songDelayInSeconds;
-    public double marginOfError; // Default margin of error = 0.1
+    public double marginOfError;
     public double MarginOfError
     {
         get { return marginOfError; }
-        set { marginOfError = Math.Max(0, value); } // Ensure margin of error is not negative
+        set { marginOfError = Math.Max(0, value); }
     }
 
     public int inputDelayInMilliseconds;
-    public float inputSensitivity = 0.5f; // Increased sensitivity multiplier for input detection
+    public float inputSensitivity = 0.5f; 
 
     public string fileLocation;
     public float noteTime;
@@ -103,8 +103,7 @@ public class SongManager : MonoBehaviour
     {
         if (!isSongFinished && audioSource.isPlaying)
         {
-            // Check if the audio source has finished playing the song
-            if (audioSource.time >= audioSource.clip.length - 0.01f) // Allow a small buffer for precision
+            if (audioSource.time >= audioSource.clip.length - 0.01f)
             {
                 SongFinished();
             }
@@ -114,15 +113,12 @@ public class SongManager : MonoBehaviour
 
     private void SongFinished()
     {
-        // Do something when the song is finished
         Debug.Log("Song finished!");
         isSongFinished = true;
 
-        // Enable the results GameObject
         resultsGameObject.SetActive(true);
     }
 
-    // Method to adjust the margin of error based on input sensitivity
     public double AdjustedMarginOfError()
     {
         return MarginOfError * inputSensitivity;

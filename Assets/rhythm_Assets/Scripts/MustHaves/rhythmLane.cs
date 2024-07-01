@@ -3,14 +3,14 @@ using UnityEngine;
 using Melanchall.DryWetMidi.Interaction;
 using System;
 
-public class Lane : MonoBehaviour
+public class rhythmLane : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _particleSystem = default;
 
     public Melanchall.DryWetMidi.MusicTheory.NoteName noteRestriction;
     public KeyCode input;
     public GameObject notePrefab;
-    List<Note> notes = new List<Note>();
+    List<rhythmNote> notes = new List<rhythmNote>();
     public List<double> timeStamps = new List<double>();
 
     int spawnIndex = 0;
@@ -18,7 +18,6 @@ public class Lane : MonoBehaviour
 
     public List<string> noteRestrictions = new List<string>();
 
-    // Start is called before the first frame update
     void Start()
     {
 
@@ -30,34 +29,30 @@ public class Lane : MonoBehaviour
         {
             if (note.NoteName == noteRestriction)
             {
-                var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, SongManager.midiFile.GetTempoMap());
+                var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, rhythmSongManager.midiFile.GetTempoMap());
                 timeStamps.Add((double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f);
             }
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // Spawn notes
-        while (spawnIndex < timeStamps.Count && SongManager.GetAudioSourceTime() >= timeStamps[spawnIndex] - SongManager.Instance.noteTime)
+        while (spawnIndex < timeStamps.Count && rhythmSongManager.GetAudioSourceTime() >= timeStamps[spawnIndex] - rhythmSongManager.Instance.noteTime)
         {
             var note = Instantiate(notePrefab, transform);
-            notes.Add(note.GetComponent<Note>());
-            note.GetComponent<Note>().assignedTime = (float)timeStamps[spawnIndex];
+            notes.Add(note.GetComponent<rhythmNote>());
+            note.GetComponent<rhythmNote>().assignedTime = (float)timeStamps[spawnIndex];
             spawnIndex++;
         }
 
-        // Check input for each note
         for (int i = 0; i < timeStamps.Count; i++)
         {
             double timeStamp = timeStamps[i];
-            double marginOfError = SongManager.Instance.MarginOfError;
-            double audioTime = SongManager.GetAudioSourceTime() - (SongManager.Instance.inputDelayInMilliseconds / 1000.0);
+            double marginOfError = rhythmSongManager.Instance.MarginOfError;
+            double audioTime = rhythmSongManager.GetAudioSourceTime() - (rhythmSongManager.Instance.inputDelayInMilliseconds / 1000.0);
 
             if (!inputIndices.Contains(i))
             {
-                // If note hasn't been processed yet
                 if (Input.GetKeyDown(input) && Math.Abs(audioTime - timeStamp) < marginOfError)
                 {
                     Hit(i);
@@ -76,13 +71,13 @@ public class Lane : MonoBehaviour
 
     private void Hit(int index)
     {
-        ScoreManager.Hit();
+        rhythmScoreManager.Hit();
         _particleSystem.Play();
         Destroy(notes[index].gameObject);
     }
 
     private void Miss(int index)
     {
-        ScoreManager.Miss();
+        rhythmScoreManager.Miss();
     }
 }
